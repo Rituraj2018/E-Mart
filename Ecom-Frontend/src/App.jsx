@@ -5,8 +5,8 @@ import Products from './components/products/Products'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './components/home/Home'
 import Navbar from './components/shared/Navbar'
-import About from './components/About'
-import Contact from './components/Contact'
+import About from './pages/About'
+import Contact from './pages/Contact'
 import { Toaster } from 'react-hot-toast'
 import Cart from './components/cart/Cart'
 import LogIn from './components/auth/LogIn'
@@ -21,6 +21,7 @@ import AdminProducts from './components/admin/products/AdminProducts'
 import Sellers from './components/admin/sellers/Sellers'
 import Category from './components/admin/categories/Category'
 import Orders from './components/admin/order/Orders'
+import Users from './components/admin/users/Users'
 
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
       <Route path='sellers' element={<Sellers />} />
       <Route path='orders' element={<Orders />} />
       <Route path='categories' element={<Category />} />
+      <Route path='users' element={<Users />} />
     </Route>
   </Route>
 </Routes>

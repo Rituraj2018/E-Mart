@@ -4,6 +4,8 @@ const { generateJwtCookie } = require('../utils/jwt.utils');
 const { paginate, buildPageResponse } = require('../utils/pagination.utils');
 const { ROLES } = require('../config/constants');
 const { constructImageUrl } = require('../utils/file.utils');
+const { uploadToCloudinary } = require('../utils/cloudinary.utils');
+const fs = require('fs').promises;
 
 // POST /api/auth/signin
 const signin = async (req, res) => {
@@ -48,10 +50,26 @@ const uploadProfilePicture = async (req, res) => {
     if (!user) return res.status(404).json({ message: 'User not found', status: false });
     
     if (!req.file) return res.status(400).json({ message: 'No image file provided', status: false });
+    
+    // 1. Upload to Cloudinary
+    const cloudinaryUrl = await uploadToCloudinary(req.file.path, 'profiles');
 
-    // Save the new filename to the user's document
-    user.avatar = req.file.filename;
+    // 2. Save filename or Cloudinary URL to user document
+    if (cloudinaryUrl) {
+      user.avatar = cloudinaryUrl;
+    } else {
+      user.avatar = req.file.filename;
+    }
     await user.save();
+
+    // 3. Delete the local temp file if Cloudinary was successful
+    if (cloudinaryUrl) {
+      try {
+        await fs.unlink(req.file.path);
+      } catch (unlinkErr) {
+        console.error("Failed to delete local temp file:", unlinkErr.message);
+      }
+    }
 
     return res.status(200).json({ 
       message: 'Profile picture updated successfully',
@@ -135,4 +153,20 @@ const getAllSellers = async (req, res) => {
   }
 };
 
-module.exports = { signin, signup, getCurrentUsername, getUserDetails, signout, getAllSellers,uploadProfilePicture };
+// GET /api/auth/users
+const getAllUsers = async (req, res) => {
+  try {
+    const { pageNumber = 0, pageSize = 50 } = req.query;
+    const { skip, limit, sort } = paginate(pageNumber, pageSize, '_id', 'desc');
+    const [users, total] = await Promise.all([
+      User.find({ roles: ROLES.USER }).sort(sort).skip(skip).limit(limit).select('-password'),
+      User.countDocuments({ roles: ROLES.USER }),
+    ]);
+    return res.status(200).json(buildPageResponse(users, total, pageNumber, pageSize));
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { signin, signup, getCurrentUsername, getUserDetails, signout, getAllSellers, uploadProfilePicture, getAllUsers };
+

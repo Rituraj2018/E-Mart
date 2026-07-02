@@ -3,6 +3,8 @@ const Category = require('../models/category.model');
 const Cart = require('../models/cart.model');
 const { paginate, buildPageResponse } = require('../utils/pagination.utils');
 const { upload, constructImageUrl } = require('../utils/file.utils');
+const { uploadToCloudinary } = require('../utils/cloudinary.utils');
+const fs = require('fs').promises;
 
 const formatProduct = (p) => ({
   productId: p._id,
@@ -10,9 +12,19 @@ const formatProduct = (p) => ({
   image: constructImageUrl(p.image),
   description: p.description,
   quantity: p.quantity,
+  stockQuantity: p.stockQuantity !== undefined ? p.stockQuantity : p.quantity,
   price: p.price,
   discount: p.discount,
+  discountPercentage: p.discountPercentage !== undefined ? p.discountPercentage : p.discount,
   specialPrice: p.specialPrice,
+  brand: p.brand,
+  rating: p.rating,
+  featured: p.featured,
+  createdAt: p.createdAt,
+  category: p.category && p.category.categoryName ? {
+    categoryId: p.category._id,
+    categoryName: p.category.categoryName
+  } : p.category,
 });
 
 // POST /api/admin/categories/:categoryId/product
@@ -136,8 +148,26 @@ const updateProductImage = async (req, res) => {
     if (!product) return res.status(404).json({ message: 'Product not found', status: false });
     if (!req.file) return res.status(400).json({ message: 'No image file provided', status: false });
 
-    product.image = req.file.filename;
+    // 1. Upload to Cloudinary
+    const cloudinaryUrl = await uploadToCloudinary(req.file.path, 'products');
+
+    // 2. Save filename or Cloudinary URL to product
+    if (cloudinaryUrl) {
+      product.image = cloudinaryUrl;
+    } else {
+      product.image = req.file.filename;
+    }
     await product.save();
+
+    // 3. Delete local temp file if Cloudinary was successful
+    if (cloudinaryUrl) {
+      try {
+        await fs.unlink(req.file.path);
+      } catch (unlinkErr) {
+        console.error("Failed to delete local temp file:", unlinkErr.message);
+      }
+    }
+
     return res.status(200).json(formatProduct(product));
   } catch (err) {
     return res.status(500).json({ message: err.message });

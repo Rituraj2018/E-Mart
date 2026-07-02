@@ -35,6 +35,9 @@ const upload = multer({
 });
 
 const constructImageUrl = (imageName) => {
+  if (imageName && (imageName.startsWith('http://') || imageName.startsWith('https://'))) {
+    return imageName;
+  }
   const base = process.env.IMAGE_BASE_URL || 'http://localhost:8080/images';
   return base.endsWith('/') ? `${base}${imageName}` : `${base}/${imageName}`;
 };

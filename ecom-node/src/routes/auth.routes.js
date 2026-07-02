@@ -1,7 +1,7 @@
 const { upload } = require('../utils/file.utils');
 const express = require('express');
 const router = express.Router();
-const { signin, signup, getCurrentUsername, getUserDetails, signout, getAllSellers,uploadProfilePicture } = require('../controllers/auth.controller');
+const { signin, signup, getCurrentUsername, getUserDetails, signout, getAllSellers,uploadProfilePicture, getAllUsers } = require('../controllers/auth.controller');
 const { verifyToken, hasRole } = require('../middleware/auth.middleware');
 
 /**
@@ -70,6 +70,7 @@ router.get('/username', verifyToken, getCurrentUsername);
 router.get('/user', verifyToken, getUserDetails);
 router.post('/signout', signout);
 router.get('/sellers', verifyToken, hasRole('ROLE_ADMIN'), getAllSellers);
+router.get('/users', verifyToken, hasRole('ROLE_ADMIN'), getAllUsers);
 router.put('/profile-picture', verifyToken, upload.single('image'), uploadProfilePicture);
 
 module.exports = router;
