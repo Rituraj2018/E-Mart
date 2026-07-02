@@ -1,6 +1,6 @@
 # 🛒 E-Mart — Premium MERN Full-Stack E-Commerce
 
-![E-Mart Banner](assets/banner.svg)
+![E-Mart Banner](https://marketplace.canva.com/EAFWecuevFk/1/0/1600w/canva-grey-brown-minimalist-summer-season-collections-banner-landscape-VXEmg9V800o.jpg)
 ### 🛍️ India's Trusted Online Shopping Destination
 
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
