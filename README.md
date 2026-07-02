@@ -326,7 +326,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 - **Name**: Rituraj Singh
 - **Email**: [singhrituraj8077@gmail.com](mailto:singhrituraj8077@gmail.com)
-- **Phone**: +91 8887942294
+
 - **Location**: Khandari, Agra, Uttar Pradesh, India
 - **GitHub**: [https://github.com/Rituraj2018](https://github.com/Rituraj2018)
 
