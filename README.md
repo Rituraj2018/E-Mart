@@ -1,10 +1,6 @@
 # 🛒 E-Mart — Premium MERN Full-Stack E-Commerce
 
-<div align="center">
-
-<img src="assets/winter-banner.png" alt="E-Mart Winter Collection Banner" width="100%">
-
-</div>
+![E-Mart Banner](assets/banner.svg)
 ### 🛍️ India's Trusted Online Shopping Destination
 
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
