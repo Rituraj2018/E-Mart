@@ -2,8 +2,9 @@
 
 <div align="center">
 
-![E-Mart Banner](https://marketplace.canva.com/EAFWecuevFk/1/0/1600w/canva-grey-brown-minimalist-summer-season-collections-banner-landscape-VXEmg9V800o.jpg)
+<img src="assets/winter-banner.png" alt="E-Mart Winter Collection Banner" width="100%">
 
+</div>
 ### 🛍️ India's Trusted Online Shopping Destination
 
 [![React](https://img.shields.io/badge/React-18.x-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
