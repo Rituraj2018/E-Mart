@@ -7,7 +7,7 @@ const Team = () => {
       id: 1,
       name: 'Rituraj Singh',
       role: 'Founder & Lead Architect',
-      image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=400&q=80',
+      image: '/Rituraj.jpg',
       github: 'https://github.com/Rituraj2018',
       linkedin: 'https://linkedin.com',
       twitter: 'https://twitter.com',

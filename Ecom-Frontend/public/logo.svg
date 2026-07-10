@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <!-- Left Bracket -->
+  <path d="M 120 100 L 20 250 L 120 400 L 160 400 L 60 250 L 160 100 Z" fill="black" />
+  
+  <!-- Center R (Geometric & Sharp) -->
+  <path fill-rule="evenodd" d="
+    M 190 150 
+    L 270 150 
+    L 310 190 
+    L 310 230 
+    L 270 270 
+    L 310 350 
+    L 270 350 
+    L 230 270 
+    L 230 350 
+    L 190 350 
+    Z 
+    M 230 190 
+    L 230 230 
+    L 270 230 
+    L 270 190 
+    Z" fill="black" />
+    
+  <!-- Right Bracket -->
+  <path d="M 380 100 L 480 250 L 380 400 L 340 400 L 440 250 L 340 100 Z" fill="black" />
+</svg>
